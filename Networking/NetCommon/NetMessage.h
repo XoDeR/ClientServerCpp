@@ -47,7 +47,7 @@ namespace ClientServerCpp
 			}
 
 			template <typename DataType>
-			friend Message<T>& operator >> (Message<T>& msg, const DataType& data)
+			friend Message<T>& operator >> (Message<T>& msg, DataType& data)
 			{
 				static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pushed into vector");
 

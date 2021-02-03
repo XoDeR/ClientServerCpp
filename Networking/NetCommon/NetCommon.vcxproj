@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Net.h" />
     <ClInclude Include="NetCommon.h" />
     <ClInclude Include="NetMessage.h" />
   </ItemGroup>

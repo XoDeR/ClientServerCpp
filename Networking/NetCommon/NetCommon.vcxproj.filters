@@ -3,5 +3,6 @@
   <ItemGroup>
     <ClInclude Include="NetCommon.h" />
     <ClInclude Include="NetMessage.h" />
+    <ClInclude Include="Net.h" />
   </ItemGroup>
 </Project>
