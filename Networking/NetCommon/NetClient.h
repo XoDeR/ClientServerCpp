@@ -35,7 +35,7 @@ namespace ClientServerCpp
 
 					connction->connectToServer(endpoints);
 
-					thrContext = std::thread([this() { context.run() }]);
+					thrContext = std::thread([this]() { context.run() });
 				}
 				catch (std::exception& e)
 				{

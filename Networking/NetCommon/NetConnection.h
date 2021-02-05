@@ -17,7 +17,7 @@ namespace ClientServerCpp
 
 			}
 
-			virtual ~Conncetion()
+			virtual ~Connection()
 			{
 
 			}
@@ -44,7 +44,7 @@ namespace ClientServerCpp
 		protected:
 			asio::ip::tcp::socket socket;
 
-			asio::io_connect& asioContext;
+			asio::io_context& asioContext;
 
 			TsQueue<Message<T>> messagesOut;
 
