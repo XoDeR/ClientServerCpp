@@ -62,5 +62,21 @@ namespace ClientServerCpp
 				return msg;
 			}
 		};
+
+		template <typename T>
+		class Connection;
+
+		template <typename T>
+		struct OwnedMessage
+		{
+			std::shared_ptr<Connection<T>> remote = nullptr;
+			Message<T> msg;
+
+			friend std::ostream& operator << (std::ostream& os, const OwnedMessage<T>& msg)
+			{
+				os << msg.msg;
+				return os;
+			}
+		};
 	}
 }

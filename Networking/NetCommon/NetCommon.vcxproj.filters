@@ -4,5 +4,9 @@
     <ClInclude Include="NetCommon.h" />
     <ClInclude Include="NetMessage.h" />
     <ClInclude Include="Net.h" />
+    <ClInclude Include="NetTsQueue.h" />
+    <ClInclude Include="NetClient.h" />
+    <ClInclude Include="NetConnection.h" />
+    <ClInclude Include="NetServer.h" />
   </ItemGroup>
 </Project>

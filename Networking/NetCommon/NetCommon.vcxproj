@@ -20,8 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Net.h" />
+    <ClInclude Include="NetClient.h" />
     <ClInclude Include="NetCommon.h" />
+    <ClInclude Include="NetConnection.h" />
     <ClInclude Include="NetMessage.h" />
+    <ClInclude Include="NetServer.h" />
+    <ClInclude Include="NetTsQueue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
