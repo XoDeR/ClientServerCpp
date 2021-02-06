@@ -63,21 +63,19 @@ namespace ClientServerCpp
 						{
 							std::cout << "[Server] New connection: " << socket.remote_endpoint() << "\n";
 
-							/*
 							std::shared_ptr<Connection<T>> newConnection = std::make_shared<Connection<T>>(Connection<T>::owner::server,
 								asioContext, std::move(socket), messagesIn);
-								*/
 
-							//if (onClientConnect(newConnection))
-							//{
-							//	dequeConnections.push_back(std::move(newConnection));
-							//	dequeConnections.back()->connectToClient(idCounter++);
-							//	std::cout << "[" << dequeConnections.back()->getId() << "] Connection approved\n";
-							//}
-							//else
-							//{
-							//	std::cout << "[-----] Connection denied\n";
-							//}
+							if (onClientConnect(newConnection))
+							{
+								dequeConnections.push_back(std::move(newConnection));
+								dequeConnections.back()->connectToClient(idCounter++);
+								std::cout << "[" << dequeConnections.back()->getId() << "] Connection approved\n";
+							}
+							else
+							{
+								std::cout << "[-----] Connection denied\n";
+							}
 						}
 						else
 						{

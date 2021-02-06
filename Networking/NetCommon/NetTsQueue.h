@@ -11,7 +11,9 @@ namespace ClientServerCpp
 		{
 		public:
 			TsQueue() = default;
+			
 			TsQueue(const TsQueue<T>& tsQueue) = delete;
+			
 			virtual ~TsQueue()
 			{
 				clear();

@@ -197,11 +197,11 @@ namespace ClientServerCpp
 			{
 				if (ownerType == owner::server)
 				{
-					messagesIn.push_back({ this->shared_from_this(), msgTemporaryIn });
+					messagesIn.pushBack({ this->shared_from_this(), msgTemporaryIn });
 				}
 				else
 				{
-					messagesIn.push_back({ nullptr, msgTemporaryIn });
+					messagesIn.pushBack({ nullptr, msgTemporaryIn });
 				}
 
 				readHeader();
@@ -211,7 +211,7 @@ namespace ClientServerCpp
 			asio::ip::tcp::socket socket;
 			asio::io_context& asioContext;
 			TsQueue<Message<T>> messagesOut;
-			TsQueue<OwnedMessage<T>> messagesIn;
+			TsQueue<OwnedMessage<T>>& messagesIn;
 			Message<T> msgTemporaryIn;
 			owner ownerType = owner::server;
 			uint32_t id = 0;
