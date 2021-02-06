@@ -51,7 +51,7 @@ namespace ClientServerCpp
 					threadContext.join();
 				}
 
-				std::cout << "[Server] stopped!\n"
+				std::cout << "[Server] stopped!\n";
 			}
 
 			void waitForClientConnection()

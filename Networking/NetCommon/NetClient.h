@@ -28,14 +28,14 @@ namespace ClientServerCpp
 			{
 				try
 				{
-					connection = std::make_unique<Connection<T>>();
-
 					asio::ip::tcp::resolver resolver(context);
-					endpoints = resolver.resolve(host, std::to_string(port));
+					asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(host, std::to_string(port));
 
-					connction->connectToServer(endpoints);
+					connection = std::make_unique<Connection<T>>(Connection<T>::owner::client, context, asio::ip::tcp::socket(context), messagesIn);
 
-					thrContext = std::thread([this]() { context.run() });
+					connection->connectToServer(endpoints);
+
+					thrContext = std::thread([this]() { context.run(); });
 				}
 				catch (std::exception& e)
 				{
@@ -71,6 +71,14 @@ namespace ClientServerCpp
 				else
 				{
 					return false;
+				}
+			}
+
+			void send(const Message<T>& msg)
+			{
+				if (getIsConnected())
+				{
+					connection->send(msg);
 				}
 			}
 
