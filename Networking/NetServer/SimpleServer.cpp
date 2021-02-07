@@ -22,23 +22,38 @@ protected:
 
 	virtual bool onClientConnect(std::shared_ptr<ClientServerCpp::Net::Connection<CustomMsgTypes>> client)
 	{
+		ClientServerCpp::Net::Message<CustomMsgTypes> msg;
+		msg.header.id = CustomMsgTypes::ServerAccept;
+
+		client->send(msg);
+
 		return true;
 	}
 
 	virtual void onClientDisconnect(std::shared_ptr<ClientServerCpp::Net::Connection<CustomMsgTypes>> client)
 	{
+		std::cout << "Removing client [" << client->getId() << "]\n";
 	}
 
 	virtual void onMessage(std::shared_ptr<ClientServerCpp::Net::Connection<CustomMsgTypes>> client, ClientServerCpp::Net::Message<CustomMsgTypes>& msg)
 	{
 		switch (msg.header.id)
 		{
-		case CustomMsgTypes::ServerPing:
-		{
-			std::cout << "[" << client->getId() << "] Server ping\n";
-			client->send(msg);
-		}
-		break;
+			case CustomMsgTypes::ServerPing:
+			{
+				std::cout << "[" << client->getId() << "] Server ping\n";
+				client->send(msg);
+			}
+			break;
+			case CustomMsgTypes::MessageAll:
+			{
+				std::cout << "[" << client->getId() << "] Message all\n";
+				ClientServerCpp::Net::Message<CustomMsgTypes> msg;
+				msg.header.id = CustomMsgTypes::ServerMessage;
+				msg << client->getId();
+				messageAllClients(msg, client);
+			}
+			break;
 		}
 	}
 };

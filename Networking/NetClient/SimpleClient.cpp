@@ -24,6 +24,13 @@ public:
 		msg << timeNow;
 		send(msg);
 	}
+
+	void messageAll()
+	{
+		ClientServerCpp::Net::Message<CustomMsgTypes> msg;
+		msg.header.id = CustomMsgTypes::MessageAll;
+		send(msg);
+	}
 };
 
 int main()
@@ -37,7 +44,7 @@ int main()
 	bool quit = false;
 	while (!quit)
 	{
-		if (GetForegroundWindow() == GetConsoleWindow())
+		//if (GetForegroundWindow() == GetConsoleWindow())
 		{
 			key[0] = GetAsyncKeyState('1') & 0x8000;
 			key[1] = GetAsyncKeyState('2') & 0x8000;
@@ -47,6 +54,10 @@ int main()
 		if (key[0] && !oldKey[0])
 		{
 			c.pingServer();
+		}
+		if (key[1] && !oldKey[1])
+		{
+			c.messageAll();
 		}
 		if (key[2] && !oldKey[2])
 		{
@@ -66,15 +77,29 @@ int main()
 
 				switch (msg.header.id)
 				{
-				case CustomMsgTypes::ServerPing :
-				{
-					std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-					std::chrono::system_clock::time_point timeThen;
-					msg >> timeThen;
+					case CustomMsgTypes::ServerAccept:
+					{
+						std::cout << "Server accepted connection\n";
+					}
+					break;
 
-					std::cout << "Ping: " << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
-				}
-				break;
+					case CustomMsgTypes::ServerPing :
+					{
+						std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+						std::chrono::system_clock::time_point timeThen;
+						msg >> timeThen;
+
+						std::cout << "Ping: " << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
+					}
+					break;
+
+					case CustomMsgTypes::ServerMessage:
+					{
+						uint32_t clientId;
+						msg >> clientId;
+						std::cout << "Hello from [" << clientId << "]\n";
+					}
+					break;
 				}
 			}
 		}
