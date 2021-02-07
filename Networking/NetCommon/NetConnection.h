@@ -48,7 +48,7 @@ namespace ClientServerCpp
 				}
 			}
 
-			bool connectToServer(const asio::ip::tcp::resolver::results_type& endpoints)
+			void connectToServer(const asio::ip::tcp::resolver::results_type& endpoints)
 			{
 				if (ownerType == owner::client)
 				{
@@ -69,7 +69,7 @@ namespace ClientServerCpp
 				return socket.is_open();
 			}
 
-			bool disconnect()
+			void disconnect()
 			{
 				if (getIsConnected())
 				{
@@ -88,8 +88,8 @@ namespace ClientServerCpp
 				asio::post(asioContext,
 					[this, msg]()
 					{
-						bool writingMessage = !messagesOut.empty();
-						messagesOut.push_back(msg);
+						bool writingMessage = !messagesOut.getIsEmpty();
+						messagesOut.pushBack(msg);
 						if (!writingMessage)
 						{
 							writeHeader();
@@ -113,9 +113,9 @@ namespace ClientServerCpp
 							}
 							else
 							{
-								messagesOut.pop_front();
+								messagesOut.popFront();
 
-								if (!messagesOut.empty())
+								if (!messagesOut.getIsEmpty())
 								{
 									writeHeader();
 								}
@@ -136,9 +136,9 @@ namespace ClientServerCpp
 					{
 						if (!ec)
 						{
-							messagesOut.pop_front();
+							messagesOut.popFront();
 
-							if (!messagesOut.empty())
+							if (!messagesOut.getIsEmpty())
 							{
 								writeHeader();
 							}
