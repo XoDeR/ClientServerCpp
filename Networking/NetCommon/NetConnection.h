@@ -83,7 +83,7 @@ namespace ClientServerCpp
 			}
 
 		public:
-			bool send(const Message<T>& msg)
+			void send(const Message<T>& msg)
 			{
 				asio::post(asioContext,
 					[this, msg]()

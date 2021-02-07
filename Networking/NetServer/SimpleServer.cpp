@@ -31,6 +31,15 @@ protected:
 
 	virtual void onMessage(std::shared_ptr<ClientServerCpp::Net::Connection<CustomMsgTypes>> client, ClientServerCpp::Net::Message<CustomMsgTypes>& msg)
 	{
+		switch (msg.header.id)
+		{
+		case CustomMsgTypes::ServerPing:
+		{
+			std::cout << "[" << client->getId() << "] Server ping\n";
+			client->send(msg);
+		}
+		break;
+		}
 	}
 };
 
